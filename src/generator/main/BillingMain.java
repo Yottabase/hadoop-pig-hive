@@ -1,8 +1,8 @@
-package main;
+package generator.main;
+
+import generator.util.ItemBillingGenerator;
 
 import java.io.IOException;
-
-import util.ItemBillingGenerator;
 
 public class BillingMain {
 	

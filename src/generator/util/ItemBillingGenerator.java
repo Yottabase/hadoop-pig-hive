@@ -1,4 +1,4 @@
-package util;
+package generator.util;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

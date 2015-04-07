@@ -1,5 +1,6 @@
-package util;
+package generator.util;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class RandomDateGenerator {
@@ -10,13 +11,13 @@ public class RandomDateGenerator {
 
         int year = randBetween(2015, 2015);
 
-        gc.set(gc.YEAR, year);
+        gc.set(Calendar.YEAR, year);
 
-        int dayOfYear = randBetween(1, gc.getActualMaximum(gc.DAY_OF_YEAR));
+        int dayOfYear = randBetween(1, gc.getActualMaximum(Calendar.DAY_OF_YEAR));
 
-        gc.set(gc.DAY_OF_YEAR, dayOfYear);
+        gc.set(Calendar.DAY_OF_YEAR, dayOfYear);
 
-        return (gc.get(gc.YEAR) + "-" + gc.get(gc.MONTH) + "-" + gc.get(gc.DAY_OF_MONTH));
+        return (gc.get(Calendar.YEAR) + "-" + gc.get(Calendar.MONTH) + "-" + gc.get(Calendar.DAY_OF_MONTH));
 
     }
 
