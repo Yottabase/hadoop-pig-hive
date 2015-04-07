@@ -9,6 +9,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.yottabase.utils.FileSystem;
 
 public class Main {
 
@@ -20,8 +21,8 @@ public class Main {
 		String inputJob2 = outputJob1;
 		String outputJob2 = args[1] + "/job2";
 		
-		deleteDirectory(new File(outputJob1));
-		deleteDirectory(new File(outputJob2));
+		FileSystem.deleteDirectory(new File(outputJob1));
+		FileSystem.deleteDirectory(new File(outputJob2));
 		
 		runJob1(inputJob1, outputJob1);
 		runJob2(inputJob2, outputJob2);
@@ -63,23 +64,6 @@ public class Main {
 		job.setOutputValueClass(CountByMounth.class);
 		job.waitForCompletion(true);
 		
-	}
-	
-	public static boolean deleteDirectory(File directory) {
-	    if(directory.exists()){
-	        File[] files = directory.listFiles();
-	        if(null!=files){
-	            for(int i=0; i<files.length; i++) {
-	                if(files[i].isDirectory()) {
-	                    deleteDirectory(files[i]);
-	                }
-	                else {
-	                    files[i].delete();
-	                }
-	            }
-	        }
-	    }
-	    return(directory.delete());
 	}
 	
 }
