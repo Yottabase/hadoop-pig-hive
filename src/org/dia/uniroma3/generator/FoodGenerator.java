@@ -1,4 +1,4 @@
-package generator.util;
+package org.dia.uniroma3.generator;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,6 +1,4 @@
-package generator.main;
-
-import generator.util.ItemBillingGenerator;
+package org.dia.uniroma3.generator;
 
 import java.io.IOException;
 
@@ -15,7 +13,7 @@ public static void main(String[] args) throws IOException {
 		 * cibi da cui pescare
 		 * 
 		 * tale file è nella cartella billing
-		 * il file food pu� tranquillamente essere editato aggiungendo nuovi
+		 * il file food può tranquillamente essere editato aggiungendo nuovi
 		 * cibi (uno per riga)
 		 */
 
