@@ -1,4 +1,4 @@
-package org.yottabase.billing.simple;
+package org.yottabase.billing.es1.onereducer;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
