@@ -24,7 +24,7 @@ public class Main {
 	}
 	
 	
-	private static void runJob(String inputPath, String outputPath) throws Exception{
+	public static void runJob(String inputPath, String outputPath) throws Exception{
 		Job job = new Job(new Configuration(), "SimpleBilling");
 		
 		FileInputFormat.addInputPath(job, new Path(inputPath));

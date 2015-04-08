@@ -14,19 +14,25 @@ import org.yottabase.utils.FileSystem;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-
-		String inputJob1 = args[0];
-		String outputJob1 = args[1] + "/job1";
+		
+		String inputJob = args[0];
+		String outputJob = args[1];
+		
+		FileSystem.deleteDirectory(new File(outputJob));
+		
+		runJob(inputJob, outputJob);
+	}
+	
+	public static void runJob(String inputPath, String outputPath) throws Exception{
+		
+		String inputJob1 = inputPath;
+		String outputJob1 = outputPath + "/job1";
 		
 		String inputJob2 = outputJob1;
-		String outputJob2 = args[1] + "/job2";
-		
-		FileSystem.deleteDirectory(new File(outputJob1));
-		FileSystem.deleteDirectory(new File(outputJob2));
+		String outputJob2 = outputPath + "/job2";
 		
 		runJob1(inputJob1, outputJob1);
 		runJob2(inputJob2, outputJob2);
-		
 	}
 	
 	private static void runJob1(String inputPath, String outputPath) throws Exception{
