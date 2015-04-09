@@ -23,9 +23,15 @@ insieme indicando il numero di occorrenze, possibilmente in ordine decrescente. 
 pane,latte,322
 latte,uova,223
 ...
-Facoltativo: calcolare anche (a) per ciascuna coppia di prodotti (p1,p2), in quante transazioni nelle quali
-compare p1, compare anche p2 (supporto della regola di associazione p1→p2): (b) la frequenza di
-insiemi di prodotti di cardinalità minore di 5, (c) tutti i job suddetti implementati con Pig e Hive.
+Facoltativo: calcolare anche 
+
+(a) per ciascuna coppia di prodotti (p1,p2), in quante transazioni nelle quali
+compare p1, compare anche p2 (supporto della regola di associazione p1→p2): 
+
+(b) la frequenza di insiemi di prodotti di cardinalità minore di 5, 
+
+(c) tutti i job suddetti implementati con Pig e Hive.
+
 Per ciascun job bisogna illustrare in un documento:
  Una possibile implementazione MapReduce (commentata) in pseudocodice (qualunque)
  Il relativo codice in Java (da allegare al documento)
