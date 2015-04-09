@@ -9,6 +9,8 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class Main {
+	
+	public static final String JOB_NAME = "es2_QuarterAggregation";
 
 	public static void main(String[] args) throws Exception {
 		
@@ -19,6 +21,8 @@ public class Main {
 	}
 	
 	public static void runJob(String inputPath, String outputPath) throws Exception{
+		
+		outputPath += "/" + JOB_NAME;
 		
 		String inputJob1 = inputPath;
 		String outputJob1 = outputPath + "/job1";
@@ -32,7 +36,7 @@ public class Main {
 	
 	private static void runJob1(String inputPath, String outputPath) throws Exception{
 		
-		Job job = new Job(new Configuration(), "quarter_aggregation_es2_job1");
+		Job job = new Job(new Configuration(), JOB_NAME + "_job1");
 		
 		FileInputFormat.addInputPath(job, new Path(inputPath));
 		FileOutputFormat.setOutputPath(job, new Path(outputPath));
@@ -51,7 +55,7 @@ public class Main {
 	
 	private static void runJob2(String inputPath, String outputPath) throws Exception{
 		
-		Job job = new Job(new Configuration(), "quarter_aggregation_es2_job2");
+		Job job = new Job(new Configuration(), JOB_NAME + "_job2");
 		
 		FileInputFormat.addInputPath(job, new Path(inputPath));
 		FileOutputFormat.setOutputPath(job, new Path(outputPath));

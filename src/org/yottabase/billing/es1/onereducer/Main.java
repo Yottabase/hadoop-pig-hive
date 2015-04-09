@@ -9,6 +9,8 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class Main {
+	
+	public static final String JOB_NAME = "es1_SimpleBilling_r1";
 
 	public static void main(String[] args) throws Exception {
 		
@@ -20,7 +22,10 @@ public class Main {
 	
 	
 	public static void runJob(String inputPath, String outputPath) throws Exception{
-		Job job = new Job(new Configuration(), "SimpleBilling");
+		
+		outputPath += "/" + JOB_NAME;
+		
+		Job job = new Job(new Configuration(), JOB_NAME);
 		
 		FileInputFormat.addInputPath(job, new Path(inputPath));
 		FileOutputFormat.setOutputPath(job, new Path(outputPath));
