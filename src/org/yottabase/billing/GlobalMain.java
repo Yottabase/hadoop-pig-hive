@@ -1,7 +1,6 @@
 package org.yottabase.billing;
 
 import java.io.File;
-
 import org.yottabase.utils.FileSystem;
 
 public class GlobalMain {
@@ -20,9 +19,11 @@ public class GlobalMain {
 		
 		FileSystem.deleteDirectory(new File(outputPath));
 		
-		org.yottabase.billing.es1.onereducer.Main.runJob(inputPath, outputPath + "/es1_simple_billing_onered");
+		//org.yottabase.billing.es1.onereducer.Main.runJob(inputPath, outputPath + "/es1_simple_billing_onered");
 		
-		org.yottabase.billing.es2.Main.runJob(inputPath, outputPath + "/es2_quarter_aggregation");
+		//org.yottabase.billing.es2.Main.runJob(inputPath, outputPath + "/es2_quarter_aggregation");
+		
+		org.yottabase.billing.es3.Main.runJob(inputPath, outputPath);
 	}
 
 }
