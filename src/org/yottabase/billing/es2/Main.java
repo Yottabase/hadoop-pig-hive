@@ -1,7 +1,5 @@
 package org.yottabase.billing.es2;
 
-import java.io.File;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -9,7 +7,6 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.yottabase.utils.FileSystem;
 
 public class Main {
 
@@ -17,8 +14,6 @@ public class Main {
 		
 		String inputJob = args[0];
 		String outputJob = args[1];
-		
-		FileSystem.deleteDirectory(new File(outputJob));
 		
 		runJob(inputJob, outputJob);
 	}
