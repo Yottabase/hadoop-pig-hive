@@ -1,79 +1,50 @@
 package org.yottabase.billing.es3;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
-
+import java.util.Queue;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
-
 public class TopKProductPairReducer extends
-	Reducer<ProductPair, IntWritable, ProductPair, IntWritable> {
-	
-	private static final int K = 10;
-	
-	PriorityQueue<ProductPairCount> top = new PriorityQueue<ProductPairCount>(new ProductPairCountComparator());
+		Reducer<NullWritable, ProductPairCount, NullWritable, ProductPairCount> {
+
+	private final int K = 10;
+
+	private Queue<ProductPairCount> top = new PriorityQueue<ProductPairCount>();
 
 	@Override
-	public void reduce(ProductPair key, Iterable<IntWritable> values, Context context) 
-			throws IOException, InterruptedException {
+	public void reduce(NullWritable key, Iterable<ProductPairCount> values,
+			Context context) throws IOException, InterruptedException {
 		
-		for(IntWritable count : values){
+		for (ProductPairCount value : values) {
 			
-			ProductPairCount ppc = new ProductPairCount(key, count);
+			ProductPairCount p = new ProductPairCount(
+					new ProductPair( value.getPair().getLeftProduct(), value.getPair().getRightProduct()), 
+					new IntWritable( value.getCount().get() ) );
 			
-			System.out.println(ppc);
-			top.add( ppc );
-			
-			if(top.size() > K ){
+			top.add(p);			
+			if (top.size() > K)
 				top.poll();
-			}
 		}
 		
-	}
-
-	@Override
-	protected void cleanup(
-			Reducer<ProductPair, IntWritable, ProductPair, IntWritable>.Context context)
-			throws IOException, InterruptedException {
+		for ( ProductPairCount ppc : invertQueueIntoList(top) )
+			context.write(NullWritable.get(), ppc);
 		
-		//super.cleanup(context);
-		
-		for(ProductPairCount ppc : top){
-			System.out.println(ppc);
-
-			context.write(ppc.getPair(), ppc.getCount());
-		}
 	}
 	
 	
-	
-	
-	
-	
-	/*
-	public void reduce(LongWritable key, Text value, Context context)
-			throws IOException, InterruptedException {
+	private List<ProductPairCount> invertQueueIntoList(Queue<ProductPairCount> queue) {
+		List<ProductPairCount> list = new LinkedList<ProductPairCount>();
 		
-		String line = value.toString();
-		StringTokenizer tokenizer = new StringTokenizer(line, ",\t");
-		
-		ProductPair pair = new ProductPair(new Text(tokenizer.nextToken()), new Text(tokenizer.nextToken()));
-		Integer count = new Integer(tokenizer.nextToken());
-		
-		top.add( new ProductPairCount(pair, count) );
-		
-		if(top.size() > K ){
-			top.poll();
+		while ( !top.isEmpty() ) {
+			ProductPairCount ppc = top.remove();
+			list.add(0, ppc);
 		}
+		return list;
 	}
 
-
-	@Override
-	protected void cleanup(
-			Reducer<LongWritable, Text, ProductPair, IntWritable>.Context context)
-			throws IOException, InterruptedException {
-	
-		
-	}*/
 }

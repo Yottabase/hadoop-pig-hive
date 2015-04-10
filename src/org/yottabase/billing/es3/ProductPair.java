@@ -64,10 +64,16 @@ public class ProductPair implements WritableComparable<ProductPair> {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		ProductPair that = (ProductPair) obj;
+
+		return (this.leftProduct.equals(that.leftProduct) && this.rightProduct
+				.equals(that.rightProduct));
+	};
+
+	@Override
 	public String toString() {
-		return  this.leftProduct + "," + this.rightProduct;
+		return this.leftProduct + "," + this.rightProduct;
 	}
-	
-	
 
 }
