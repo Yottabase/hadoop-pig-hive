@@ -23,7 +23,9 @@ public class GlobalMain {
 		
 		//org.yottabase.billing.es2.Main.runJob(inputPath, outputPath);
 		
-		org.yottabase.billing.es3.Main.runJob(inputPath, outputPath);
+//		org.yottabase.billing.es3.Main.runJob(inputPath, outputPath);
+		
+		org.yottabase.billing.optional.es2.Main.runJob(inputPath, outputPath);
 	}
 
 }
