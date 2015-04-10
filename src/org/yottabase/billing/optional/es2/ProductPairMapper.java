@@ -10,6 +10,20 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
+/**
+ * Per ogni record produce in output il contatore per ogni
+ * 	- elemento singolo all'interno dello scontrino
+ * 	- coppia di elementi consecutivi all'interno dello scontrino
+ * 	- terna di elementi consecutivi all'interno dello scontrino
+ * 	- quadrupla di elementi consecutivi all'interno dello scontrino
+ * 	- quintupla di elementi consecutivi all'interno dello scontrino
+ * 
+ * In questo modo vengono generate tutte e sole le combinazioni di
+ * prodotti che hanno almeno una occorrenza in qualche record
+ * 
+ * @author hduser
+ *
+ */
 public class ProductPairMapper extends
 		Mapper<LongWritable, Text, Text, IntWritable> {
 
@@ -39,7 +53,7 @@ public class ProductPairMapper extends
 				for (Text t : subset)
 					subseq += t.toString() + " ";
 
-				// TODO: La chiave dovrebbe essere un set per evitare permutazioni
+				// TODO: La chiave dovrebbe essere un set ordinato di stringhe per aggregare le permutazioni
 				// TODO: Sarebbe meglio riuscire ad ordinare decrescentemente per valore (considerare)
 				context.write(new Text(subseq), ONE);
 			}
