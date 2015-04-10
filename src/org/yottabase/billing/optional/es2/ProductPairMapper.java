@@ -48,6 +48,7 @@ public class ProductPairMapper extends
 
 			for (int j = 1; j <= limit; j++) {
 				String subseq = "";
+				// TODO: sintentico ma non ottimizzato
 				List<Text> subset = products.subList(i, i + j);
 
 				for (Text t : subset)
