@@ -9,9 +9,9 @@ import org.apache.hadoop.io.WritableComparable;
 
 public class ProductPair implements WritableComparable<ProductPair> {
 
-	private Text leftProduct;
+	private Text firstProduct;
 
-	private Text rightProduct;
+	private Text secondProduct;
 
 	public ProductPair() {
 		super();
@@ -23,42 +23,42 @@ public class ProductPair implements WritableComparable<ProductPair> {
 	}
 
 	public Text getLeftProduct() {
-		return leftProduct;
+		return firstProduct;
 	}
 
 	public Text getRightProduct() {
-		return rightProduct;
+		return secondProduct;
 	}
 
 	public void changePair(Text leftProduct, Text rightProduct) {
 		if (leftProduct.compareTo(rightProduct) <= 0) {
-			this.leftProduct = leftProduct;
-			this.rightProduct = rightProduct;
+			this.firstProduct = leftProduct;
+			this.secondProduct = rightProduct;
 		} else {
-			this.leftProduct = rightProduct;
-			this.rightProduct = leftProduct;
+			this.firstProduct = rightProduct;
+			this.secondProduct = leftProduct;
 		}
 	}
 
 	public void readFields(DataInput in) throws IOException {
-		this.leftProduct = new Text(in.readUTF());
-		this.rightProduct = new Text(in.readUTF());
+		this.firstProduct = new Text(in.readUTF());
+		this.secondProduct = new Text(in.readUTF());
 
 	}
 
 	public void write(DataOutput out) throws IOException {
-		out.writeUTF(leftProduct.toString());
-		out.writeUTF(rightProduct.toString());
+		out.writeUTF(firstProduct.toString());
+		out.writeUTF(secondProduct.toString());
 	}
 
 	public int compareTo(ProductPair o) {
 
-		int r = this.leftProduct.compareTo(o.getLeftProduct());
+		int r = this.firstProduct.compareTo(o.getLeftProduct());
 
 		if (r != 0) {
 			return r;
 		} else {
-			return this.rightProduct.compareTo(o.getRightProduct());
+			return this.secondProduct.compareTo(o.getRightProduct());
 		}
 
 	}
@@ -67,13 +67,13 @@ public class ProductPair implements WritableComparable<ProductPair> {
 	public boolean equals(Object obj) {
 		ProductPair that = (ProductPair) obj;
 
-		return (this.leftProduct.equals(that.leftProduct) && this.rightProduct
-				.equals(that.rightProduct));
+		return (this.firstProduct.equals(that.firstProduct) && this.secondProduct
+				.equals(that.secondProduct));
 	};
 
 	@Override
 	public String toString() {
-		return this.leftProduct + "," + this.rightProduct;
+		return this.firstProduct + "," + this.secondProduct;
 	}
 
 }
