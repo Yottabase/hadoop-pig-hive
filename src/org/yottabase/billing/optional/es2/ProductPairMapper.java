@@ -1,9 +1,13 @@
 package org.yottabase.billing.optional.es2;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -28,37 +32,69 @@ public class ProductPairMapper extends
 
 	private static final IntWritable ONE = new IntWritable(1);
 
-	private static final int MAX_SUBSET_SIZE = 4;
+	private final static int MAX_SUBSET_SIZE = 4;
 
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 
+		/* Tokenize input line */
 		String line = value.toString();
-
 		StringTokenizer tokenizer = new StringTokenizer(line, ",");
+		
+		/* Skip record date */
 		tokenizer.nextToken();
 
-		List<Text> products = new LinkedList<Text>();
-		while (tokenizer.hasMoreTokens())
-			products.add(new Text(tokenizer.nextToken()));
-
-		for (int i = 0; i < products.size(); i++) {
-			int limit = Math.min(products.size() - i, MAX_SUBSET_SIZE);
-
-			for (int j = 1; j <= limit; j++) {
-				String subseq = "";
-				// TODO: sintentico ma non ottimizzato
-				List<Text> subset = products.subList(i, i + j);
-
-				for (Text t : subset)
-					subseq += t.toString() + " ";
-
-				// TODO: La chiave dovrebbe essere un set ordinato di stringhe per aggregare le permutazioni
-				// TODO: Sarebbe meglio riuscire ad ordinare decrescentemente per valore (considerare)
+		/* Collect unique items sorted by name */
+		Set<Text> items = new TreeSet<Text>();
+		while ( tokenizer.hasMoreTokens() )
+			items.add(new Text( tokenizer.nextToken() ));
+		
+		/* Compute items powerset */
+		Set<Set<Text>> powerset = powersetOfMaxDimension(items, MAX_SUBSET_SIZE);
+		
+		/* Iterate over subsets and emit each as string key */
+		for (Set<Text> subset : powerset)
+			if ( !subset.isEmpty() ) {
+				String subseq = new String();
+				Iterator<Text> iterator = subset.iterator();
+				
+				while ( iterator.hasNext() )
+					subseq += iterator.next().toString() + " ";
+				
 				context.write(new Text(subseq), ONE);
 			}
+		
+	}
+	
+	/**
+	 * Computes the powerset of the set given as input parameter,
+	 * that is the set containing all subsets of the input set 
+	 * (each of which has dimension not grater than maxDim)
+	 * 
+	 * @param originalSet is the input set
+	 * @param maxDim is the maximum dimension allowed for a powerset element
+	 * @return the powerset of the input set, with elements not larger than maxDim
+	 */
+	private static Set<Set<Text>> powersetOfMaxDimension(Set<Text> originalSet, int maxDim) {
+		Set<Set<Text>> powerset = new HashSet<Set<Text>>();
+		if ( originalSet.isEmpty() ) {
+			powerset.add( new TreeSet<Text>() );
+			return powerset;
 		}
-
+		
+		List<Text> list = new ArrayList<Text>(originalSet);
+		Text head = list.get(0);
+		Set<Text> rest = new TreeSet<Text>( list.subList(1, list.size()) );
+		for ( Set<Text> set : powersetOfMaxDimension(rest, maxDim) )
+			if ( set.size() < maxDim ) {
+				Set<Text> newSet = new TreeSet<Text>();
+				newSet.add(head);
+				newSet.addAll(set);
+				
+				powerset.add(newSet);
+				powerset.add(set);
+			}
+		return powerset;
 	}
 
 }
