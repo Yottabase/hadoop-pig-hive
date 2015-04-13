@@ -3,7 +3,7 @@ package org.yottabase.billing.optional.es1;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.NullWritable;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -32,7 +32,7 @@ public class Main {
 		String outputJob2 = outputPath + "/job2";
 		
 		runJob1(inputJob1, outputJob1);
-		//runJob2(inputJob2, outputJob2);
+		runJob2(inputJob2, outputJob2);
 	}
 	
 	public static void runJob1(String inputPath, String outputPath)
@@ -52,7 +52,7 @@ public class Main {
 		job.waitForCompletion(true);
 	}
 	
-	/*
+	
 	
 	public static void runJob2(String inputPath, String outputPath)
 			throws Exception {
@@ -62,15 +62,12 @@ public class Main {
 		FileOutputFormat.setOutputPath(job, new Path(outputPath));
 
 		job.setJarByClass(Main.class);
-		job.setMapperClass(TopKProductPairMapper.class);
-//		job.setCombinerClass(TopKProductPairReducer.class);
-		job.setReducerClass(TopKProductPairReducer.class);
-
+		job.setMapperClass(GroupByProductMapper.class);
+		job.setReducerClass(GroupByProductReducer.class);
 		
-		job.setNumReduceTasks(1);
-		job.setOutputKeyClass(NullWritable.class);
-		job.setOutputValueClass(ProductPairCount.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(ProductCount.class);
 		job.waitForCompletion(true);
 	}
-	*/
+	
 }
