@@ -15,14 +15,14 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 /**
- * Per ogni record produce in output il contatore per ogni
- * 	- elemento singolo all'interno dello scontrino
- * 	- coppia di elementi consecutivi all'interno dello scontrino
- * 	- terna di elementi consecutivi all'interno dello scontrino
- * 	- quadrupla di elementi consecutivi all'interno dello scontrino
+ * For each record, emits a counter for each
+ * 	- single element within the record
+ * 	- elements pair within the record
+ * 	- elements triad within the record
+ * 	- elements quadruple within the record
  * 
- * In questo modo vengono generate tutte e sole le combinazioni di
- * prodotti che hanno almeno una occorrenza in qualche record
+ * So doing, the generated item combinations are all and only those
+ * having at least one occurrence in some record 
  * 
  * @author hduser
  *
