@@ -32,7 +32,7 @@ public class Main {
 		String outputJob2 = outputPath + "/job2";
 		
 		runJob1(inputJob1, outputJob1);
-		runJob2(inputJob2, outputJob2);
+		//runJob2(inputJob2, outputJob2);
 	}
 	
 	public static void runJob1(String inputPath, String outputPath)
@@ -52,6 +52,8 @@ public class Main {
 		job.waitForCompletion(true);
 	}
 	
+	/*
+	
 	public static void runJob2(String inputPath, String outputPath)
 			throws Exception {
 		Job job = new Job(new Configuration(), JOB_NAME + "job2");
@@ -70,4 +72,5 @@ public class Main {
 		job.setOutputValueClass(ProductPairCount.class);
 		job.waitForCompletion(true);
 	}
+	*/
 }
