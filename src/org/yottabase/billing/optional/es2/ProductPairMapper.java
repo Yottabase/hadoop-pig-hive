@@ -16,7 +16,6 @@ import org.apache.hadoop.mapreduce.Mapper;
  * 	- coppia di elementi consecutivi all'interno dello scontrino
  * 	- terna di elementi consecutivi all'interno dello scontrino
  * 	- quadrupla di elementi consecutivi all'interno dello scontrino
- * 	- quintupla di elementi consecutivi all'interno dello scontrino
  * 
  * In questo modo vengono generate tutte e sole le combinazioni di
  * prodotti che hanno almeno una occorrenza in qualche record
@@ -29,7 +28,7 @@ public class ProductPairMapper extends
 
 	private static final IntWritable ONE = new IntWritable(1);
 
-	private static final int MAX_SUBSET_SIZE = 5;
+	private static final int MAX_SUBSET_SIZE = 4;
 
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
