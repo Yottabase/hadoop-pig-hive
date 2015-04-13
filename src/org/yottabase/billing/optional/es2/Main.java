@@ -40,7 +40,7 @@ public class Main {
 
 		job.setJarByClass(Main.class);
 		job.setMapperClass(ProductPairMapper.class);
-//		job.setCombinerClass(ProductPairReducer.class);
+		job.setCombinerClass(ProductPairReducer.class);
 		job.setReducerClass(ProductPairReducer.class);
 
 		job.setOutputKeyClass(Text.class);
