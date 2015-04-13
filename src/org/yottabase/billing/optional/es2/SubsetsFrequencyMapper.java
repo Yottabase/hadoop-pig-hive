@@ -27,7 +27,7 @@ import org.apache.hadoop.mapreduce.Mapper;
  * @author hduser
  *
  */
-public class ProductPairMapper extends
+public class SubsetsFrequencyMapper extends
 		Mapper<LongWritable, Text, Text, IntWritable> {
 
 	private static final IntWritable ONE = new IntWritable(1);

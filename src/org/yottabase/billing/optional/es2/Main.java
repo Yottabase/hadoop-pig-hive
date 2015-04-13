@@ -39,9 +39,9 @@ public class Main {
 		FileOutputFormat.setOutputPath(job, new Path(outputPath));
 
 		job.setJarByClass(Main.class);
-		job.setMapperClass(ProductPairMapper.class);
-		job.setCombinerClass(ProductPairReducer.class);
-		job.setReducerClass(ProductPairReducer.class);
+		job.setMapperClass(SubsetsFrequencyMapper.class);
+		job.setCombinerClass(SubsetsFrequencyReducer.class);
+		job.setReducerClass(SubsetsFrequencyReducer.class);
 
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
