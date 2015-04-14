@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class Main {
 
-	public static final String JOB_NAME = "Optional exercise 2: Subsets Frequencies";
+	public static final String JOB_NAME = "opt2_SubsetsFrequency";
 
 	public static void main(String[] args) throws Exception {
 

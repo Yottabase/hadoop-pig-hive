@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class Main {
 
-	public static final String JOB_NAME = "optional_es1_ProductPair";
+	public static final String JOB_NAME = "opt1_ProductPair";
 
 	public static void main(String[] args) throws Exception {
 
