@@ -21,8 +21,8 @@ uva -> [(pane,1),(uva,1)]
 
 
 JAVAMAP
-pane -> [(pane,2),(pesce,1),(uva,1)]
-pesce -> [(pane,2),(pesce,1),(uva,1)]
-uva -> [(pane,1),(uva,1)]
+pane -> [(pane->2),(pesce->1),(uva->1)]
+pesce -> [(pane->2),(pesce->1),(uva->1)]
+uva -> [(pane->1),(uva->1)]
 
 
