@@ -5,6 +5,8 @@
 2015-8-15,vino,uova,formaggio,pesce,latte
 2015-0-31,vino,insalata
 2015-11-24,dolce,insalata,latte
+2015-2-24,dolce,insalata,latte
 2015-3-8,insalata,latte
 2015-7-14,vino,uova,dolce,insalata,pane,latte
+2015-1-14,vino,uova,dolce,insalata,pane,latte
 2015-0-3,vino,dolce,formaggio,pesce,latte,pesce,vino
