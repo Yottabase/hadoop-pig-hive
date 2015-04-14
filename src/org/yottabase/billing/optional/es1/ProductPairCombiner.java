@@ -5,13 +5,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class ProductPairReducer extends
-		Reducer<Text, ProductCount, Text, FloatWritable> {
+public class ProductPairCombiner extends
+		Reducer<Text, ProductCount, Text, ProductCount> {
 	
 	public void reduce(Text p1, Iterable<ProductCount> values,
 			Context context) throws IOException, InterruptedException {
@@ -32,21 +31,13 @@ public class ProductPairReducer extends
 			
 		}
 		
-		//calcola le percentuali
-		IntWritable c1 = productsMap.remove(p1);
-		float percent;
-		String outputKey;
 		
 		for(Entry<Text, IntWritable> entry : productsMap.entrySet()){
 			
 			p2 = entry.getKey();
 			c2 = entry.getValue();
-		
-			percent = (float)c2.get() / (float)c1.get();
 			
-			outputKey = "(" + p1.toString() + "," + p2.toString() + ")";
-			
-			context.write(new Text(outputKey), new FloatWritable(percent));
+			context.write(p1, new ProductCount(p2, c2));
 			
 		}
 	}

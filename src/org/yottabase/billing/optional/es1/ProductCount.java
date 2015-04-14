@@ -42,7 +42,7 @@ public class ProductCount implements WritableComparable<ProductCount>{
 
 	public void readFields(DataInput in) throws IOException {
 		this.product = new Text(in.readUTF());
-		this.count = new IntWritable(new Integer(in.readUTF()));
+		this.count = new IntWritable(Integer.parseInt(in.readUTF()));
 	}
 
 	public void write(DataOutput out) throws IOException {
@@ -65,7 +65,4 @@ public class ProductCount implements WritableComparable<ProductCount>{
 	public String toString() {
 		return	product + ":" + count;
 	}
-	
-	
-	
 }
