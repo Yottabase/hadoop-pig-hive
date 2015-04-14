@@ -23,7 +23,7 @@ public class TopKProductPairReducer extends
 		for (ProductPairCount value : values) {
 			
 			ProductPairCount p = new ProductPairCount(
-					new ProductPair( value.getPair().getLeftProduct(), value.getPair().getRightProduct()), 
+					new ProductPair( value.getPair().getFirstProduct(), value.getPair().getSecondProduct()), 
 					new IntWritable( value.getCount().get() ) );
 			
 			top.add(p);			

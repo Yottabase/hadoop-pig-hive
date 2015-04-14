@@ -17,26 +17,26 @@ public class ProductPair implements WritableComparable<ProductPair> {
 		super();
 	}
 
-	public ProductPair(Text leftProduct, Text rightProduct) {
+	public ProductPair(Text firstProduct, Text secondProduct) {
 		super();
-		this.changePair(leftProduct, rightProduct);
+		this.changePair(firstProduct, secondProduct);
 	}
 
-	public Text getLeftProduct() {
+	public Text getFirstProduct() {
 		return firstProduct;
 	}
 
-	public Text getRightProduct() {
+	public Text getSecondProduct() {
 		return secondProduct;
 	}
 
-	public void changePair(Text leftProduct, Text rightProduct) {
-		if (leftProduct.compareTo(rightProduct) <= 0) {
-			this.firstProduct = leftProduct;
-			this.secondProduct = rightProduct;
+	public void changePair(Text firstProduct, Text secondProduct) {
+		if (firstProduct.compareTo(secondProduct) <= 0) {
+			this.firstProduct = firstProduct;
+			this.secondProduct = secondProduct;
 		} else {
-			this.firstProduct = rightProduct;
-			this.secondProduct = leftProduct;
+			this.firstProduct = secondProduct;
+			this.secondProduct = firstProduct;
 		}
 	}
 
@@ -53,12 +53,12 @@ public class ProductPair implements WritableComparable<ProductPair> {
 
 	public int compareTo(ProductPair o) {
 
-		int r = this.firstProduct.compareTo(o.getLeftProduct());
+		int r = this.firstProduct.compareTo(o.getFirstProduct());
 
 		if (r != 0) {
 			return r;
 		} else {
-			return this.secondProduct.compareTo(o.getRightProduct());
+			return this.secondProduct.compareTo(o.getSecondProduct());
 		}
 
 	}
