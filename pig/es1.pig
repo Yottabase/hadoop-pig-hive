@@ -10,4 +10,4 @@ counts = FOREACH grouped GENERATE group, COUNT(products);
 
 sorted = ORDER counts BY $1 DESC; 
 
-DUMP sorted;
+STORE sorted INTO '../data/output/pig/es1_SimpleBilling' USING PigStorage();
