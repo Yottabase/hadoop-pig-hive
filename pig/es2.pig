@@ -1,4 +1,5 @@
-
+DEFINE YottaStorage org.yottabase.pig.storage.YottaStorage();
+REGISTER ../target/bigdata-0.0.1-SNAPSHOT.jar;
 
 myinput = LOAD '../data/generator/sample/esempio.txt' USING PigStorage(',') ;
 
@@ -14,4 +15,6 @@ groupedByMonth =  GROUP counted BY $0;
 
 --print = FOREACH counted GENERATE $0, TOMAP($1, $2);
 
-DUMP groupedByMonth;
+--DUMP groupedByMonth;
+
+STORE groupedByMonth INTO '../data/output/pig/es2_prova' USING YottaStorage();
