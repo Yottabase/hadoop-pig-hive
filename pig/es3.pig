@@ -18,5 +18,5 @@ sorted = ORDER counts BY count DESC;
 
 topK = LIMIT sorted 10;
 
-dump topK;
+STORE topK INTO '../data/output/pig/es3_ProductPair' USING PigStorage();
 
