@@ -17,3 +17,6 @@ pig -x local es3.pig
 
 echo "STARTING OPT1..."
 pig -x local opt1.pig
+
+echo "STARTING OPT2..."
+pig -x local opt2.pig
