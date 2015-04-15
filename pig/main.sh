@@ -3,7 +3,14 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd $DIR
 
+rm -v *.log
+rm -Rv ../data/output/pig/*
 
-# pig -x local es1.pig
+echo "STARTING ES1..."
+pig -x local es1.pig
 
+echo "STARTING ES2..."
 pig -x local es2.pig
+
+echo "STARTING ES3..."
+pig -x local es3.pig
