@@ -1,4 +1,4 @@
-package org.yottabase.billing.optional.es3;
+package org.yottabase.billing.pig.udf;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.vecmath.Tuple2d;
 
 import org.apache.pig.EvalFunc;
 import org.apache.pig.data.BagFactory;
@@ -65,15 +67,19 @@ public class PowersetUDF extends EvalFunc<DataBag> {
 		
 		/* Convert powerset into bag of tuples */
 		DataBag bag = bagFactory.newDefaultBag();
-		for (Set<String> subset : powerset)
+		for (Set<String> subset : powerset){
+			
 			if ( !subset.isEmpty() ) {
-				Tuple t = tupleFactory.newTuple();
+				Tuple container = tupleFactory.newTuple();
 				
+				Tuple t = tupleFactory.newTuple();
 				for (String p : subset)
 					t.append(p);
 				
-				bag.add(t);
+				container.append(t);
+				bag.add(container);	
 			}
+		}
 		
 		return bag;
 	}
