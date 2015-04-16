@@ -1,5 +1,5 @@
 
-REGISTER '../target/bigdata-0.0.1-SNAPSHOT.jar'
+REGISTER '../target/bigdata-0.0.1-BETA.jar'
 DEFINE powerset org.yottabase.billing.pig.udf.PowersetUDF();
 
 records = LOAD '../data/generator/sample/esempio.txt' USING PigStorage(',') ;
