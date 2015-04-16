@@ -26,7 +26,7 @@ joined = JOIN assocsCount BY group.$0, prodsCount BY group.$0;
 -- calcola le percentuali per ciascuna associazione
 prodPercents = FOREACH joined GENERATE $0, $1/$3 AS percent;
 
--- oridina le associazioni per percentuale decrescente
+-- ordina le associazioni per percentuale decrescente
 sorted = ORDER prodPercents BY percent DESC; 
 
 -- estrae le prime 10 associazioni
