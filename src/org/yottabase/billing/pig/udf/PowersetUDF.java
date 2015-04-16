@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.vecmath.Tuple2d;
-
 import org.apache.pig.EvalFunc;
 import org.apache.pig.data.BagFactory;
 import org.apache.pig.data.DataBag;
@@ -18,32 +16,6 @@ import org.apache.pig.data.TupleFactory;
 public class PowersetUDF extends EvalFunc<DataBag> {
 
 	private final static int MAX_SUBSET_SIZE = 4;
-	
-	/**
-	public static void main(String[] args) {
-		Tuple tuple = TupleFactory.getInstance().newTuple();
-		tuple.append("vino");
-		tuple.append("dolce");
-		tuple.append("insalata");
-		tuple.append("latte");
-		tuple.append("pesce");
-		
-		System.out.println("Tuple: " + tuple.toString());
-		System.out.println();
-		
-		try {
-			DataBag out = exec(tuple);
-			
-			for (Tuple t : out)
-				System.out.println(t.toString());
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	*/
 	
 	@Override
 	public DataBag exec(Tuple tuple) throws IOException {
