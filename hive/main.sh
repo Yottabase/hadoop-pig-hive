@@ -11,4 +11,6 @@ cd $DIR
 
 echo "STARTING ES1..."
 
-hive -f es1.hql
+#hive -f es1.hql
+
+hive -f es3.hql
