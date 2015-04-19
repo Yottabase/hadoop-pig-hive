@@ -1,9 +1,10 @@
-DROP table products;
+DROP table rows;
 
-CREATE TABLE products (data STRING, item ARRAY<STRING>)
+CREATE TABLE rows (row STRING)
 ROW FORMAT DELIMITED
-        FIELDS TERMINATED BY ',';
+        FIELDS TERMINATED BY '\n';
 
-LOAD DATA LOCAL INPATH '../data/generator/sample/esempio.txt' OVERWRITE INTO TABLE products;
+LOAD DATA LOCAL INPATH '../data/generator/sample/esempio.txt' OVERWRITE INTO TABLE rows;
 
-select * from products;
+
+select explode(split(substr(row, LOCATE(',', row) + 1 ), ',')) as product from rows;
