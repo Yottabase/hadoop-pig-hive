@@ -6,5 +6,6 @@ ROW FORMAT DELIMITED
 
 LOAD DATA LOCAL INPATH '../data/generator/sample/esempio.txt' OVERWRITE INTO TABLE rows;
 
-
-select explode(split(substr(row, LOCATE(',', row) + 1 ), ',')) as product from rows;
+SELECT p.product, count(*) as count
+FROM (select explode(split(substr(row, LOCATE(',', row) + 1 ), ',')) as product from rows) p
+GROUP BY p.product;
