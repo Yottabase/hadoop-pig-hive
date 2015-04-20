@@ -46,6 +46,7 @@ GROUP BY p1.product, p2.product;
 
 
 -- esegue statistiche finali
+INSERT OVERWRITE LOCAL DIRECTORY '../data/output/hive/opt1_ProductPair'
 SELECT pairCount.p1, pairCount.p2, pairCount.count / globalCount.count 
 FROM productReceiptPair globalCount JOIN productReceiptPair pairCount
 WHERE globalCount.p1 = globalCount.p2
