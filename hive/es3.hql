@@ -31,6 +31,7 @@ SELECT row_sequence(), SPLIT(SUBSTR(row, LOCATE(',', row) + 1 ), ',') FROM rows;
 -- **** PROCESSAMENTO ****
 
 INSERT OVERWRITE LOCAL DIRECTORY '../data/output/hive/es3_ProductPair'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t"
 SELECT p1.product, p2.product, count(*) AS count
 FROM
 		(SELECT receiptID, product
