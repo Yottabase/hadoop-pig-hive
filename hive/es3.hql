@@ -4,6 +4,7 @@ create temporary function row_sequence as 'org.apache.hadoop.hive.contrib.udf.UD
 
 
 
+-- **** DEFINIZIONE TABELLE ****
 
 -- crea tabella dove carica le righe dell'input (record scontrino)
 DROP TABLE rows; 
@@ -13,15 +14,33 @@ ROW FORMAT DELIMITED
 
 -- crea tabella con id univoco scontrino ed array prodotti
 DROP TABLE receiptRows;        
-CREATE TABLE receiptRows (id INT, products ARRAY<STRING>)
-ROW FORMAT DELIMITED
-        FIELDS TERMINATED BY '\n';
+CREATE TABLE receiptRows (receiptID INT, products ARRAY<STRING>);
+
+
+
+-- **** CARICAMENTO INPUT ****
 
 -- carica le righe
 LOAD DATA LOCAL INPATH '../data/generator/sample/esempio.txt' OVERWRITE INTO TABLE rows;
 
--- 
+-- trasforma le righe in scontrini con id
 INSERT INTO TABLE receiptRows 
 SELECT row_sequence(), SPLIT(SUBSTR(row, LOCATE(',', row) + 1 ), ',') FROM rows;
 
-SELECT * FROM receiptRows;
+
+
+-- **** PROCESSAMENTO ****
+
+INSERT OVERWRITE LOCAL DIRECTORY '../data/output/hive/es3_ProductPair'
+SELECT p1.product, p2.product, count(*) AS count
+FROM
+		(SELECT receiptID, product
+		FROM receiptRows LATERAL VIEW explode(products) exploded AS product) p1
+	JOIN
+		(SELECT receiptID, product
+		FROM receiptRows LATERAL VIEW explode(products) exploded AS product) p2
+	ON (p1.receiptID = p2.receiptID)
+WHERE p1.product < p2.product
+GROUP BY p1.product, p2.product
+ORDER BY count DESC LIMIT 10;
+
