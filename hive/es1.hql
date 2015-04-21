@@ -5,9 +5,9 @@ ROW FORMAT DELIMITED
         FIELDS TERMINATED BY '\n';
 
 
-LOAD DATA LOCAL INPATH '../data/generator/sample/esempio.txt' OVERWRITE INTO TABLE rows;
+LOAD DATA LOCAL INPATH '${hiveconf:INPUT}' OVERWRITE INTO TABLE rows;
 
-INSERT OVERWRITE LOCAL DIRECTORY '../data/output/hive/es1_SimpleBilling'
+INSERT OVERWRITE LOCAL DIRECTORY '${hiveconf:OUTPUT}/es1_SimpleBilling'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t"
 SELECT p.product, count(*) as count
 FROM 

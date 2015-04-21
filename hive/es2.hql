@@ -24,7 +24,7 @@ CREATE TABLE output (product STRING,month STRING,items INT);
 -- **** CARICAMENTO INPUT ****
 
 -- carica le righe
-LOAD DATA LOCAL INPATH '../data/generator/sample/esempio.txt' OVERWRITE INTO TABLE rows;
+LOAD DATA LOCAL INPATH '${hiveconf:INPUT}' OVERWRITE INTO TABLE rows;
 
 -- trasforma le righe in scontrini con data
 INSERT INTO TABLE receiptRows 
@@ -40,7 +40,7 @@ WHERE p1.receiptID<3;
 
 --
 
-INSERT OVERWRITE LOCAL DIRECTORY '../data/output/hive/es2_QuarterAggregation'
+INSERT OVERWRITE LOCAL DIRECTORY '${hiveconf:OUTPUT}/es2_QuarterAggregation'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t"
 SELECT product, concat_ws(' ',collect_set(p2.mounthCount))
 FROM (

@@ -20,7 +20,7 @@ CREATE TABLE receiptRows (receiptID INT, products ARRAY<STRING>);
 -- **** CARICAMENTO INPUT ****
 
 -- carica le righe
-LOAD DATA LOCAL INPATH '../data/generator/sample/esempio.txt' OVERWRITE INTO TABLE rows;
+LOAD DATA LOCAL INPATH '${hiveconf:INPUT}' OVERWRITE INTO TABLE rows;
 
 -- trasforma le righe in scontrini con id
 INSERT INTO TABLE receiptRows 
@@ -30,7 +30,7 @@ SELECT row_sequence(), SPLIT(SUBSTR(row, LOCATE(',', row) + 1 ), ',') FROM rows;
 
 -- **** PROCESSAMENTO ****
 
-INSERT OVERWRITE LOCAL DIRECTORY '../data/output/hive/es3_ProductPair'
+INSERT OVERWRITE LOCAL DIRECTORY '${hiveconf:OUTPUT}/es3_ProductPair'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t"
 SELECT p1.product, p2.product, count(*) AS count
 FROM
