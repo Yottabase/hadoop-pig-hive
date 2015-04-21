@@ -3,7 +3,7 @@
 /* CONFIG */
 INPUT="../data/generator/sample/esempio.txt"
 OUTPUT="../data/output/pig/"
-EXTLIB="../target/bigdata-0.0.1-BETA.jar"
+EXTLIB="../target/bigdata-1.0.0.jar"
 
 ENGINE="local"
 #ENGINE="mapred"

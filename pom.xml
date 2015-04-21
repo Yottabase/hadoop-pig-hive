@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>yottabase</groupId>
 	<artifactId>bigdata</artifactId>
-	<version>0.0.1-BETA</version>
+	<version>1.0.0</version>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
