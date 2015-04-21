@@ -26,7 +26,14 @@ public static void main(String[] args) throws IOException {
 		 * - la data viene generata in modo randomico nel formato yyyy-mm-dd
 		 */
 		IB.generate("data/generator/sample/esempio.txt", 10, 10);
-
+		
+		// big big big data!
+		IB.generate("data/generator/sample/esempio-xs.txt",   1000, 10); 	//   1k
+		IB.generate("data/generator/sample/esempio-sm.txt", 100000, 10);	// 100k
+		IB.generate("data/generator/sample/esempio-md.txt", 500000, 10);	// 500k
+		IB.generate("data/generator/sample/esempio-lg.txt",1000000, 10);	//1000k
+		IB.generate("data/generator/sample/esempio-xl.txt",100000000, 10);	//100kk
+		System.out.println("done");
 	}
 
 }
