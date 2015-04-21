@@ -1,4 +1,4 @@
-package org.yottabase.billing.es1.onereducer;
+package org.yottabase.billing.es1;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
