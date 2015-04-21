@@ -1,5 +1,5 @@
 
-records = LOAD '../data/generator/sample/esempio.txt' USING PigStorage(',') ;
+records = LOAD '$INPUT' USING PigStorage(',') ;
 
 -- lista di scontrini senza data 
 products = FOREACH records GENERATE TOBAG($1..) AS recordProds;
@@ -25,5 +25,5 @@ sorted = ORDER counts BY count DESC;
 -- estrae i primi 10
 topK = LIMIT sorted 10;
 
-STORE topK INTO '../data/output/pig/es3_ProductPair' USING PigStorage();
+STORE topK INTO '$OUTPUT/es3_ProductPair' USING PigStorage();
 

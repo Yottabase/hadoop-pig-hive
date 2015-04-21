@@ -1,6 +1,6 @@
 
 
-myinput = LOAD '../data/generator/sample/esempio.txt' USING PigStorage(',') ;
+myinput = LOAD '$INPUT' USING PigStorage(',') ;
 
 -- lista di prodotti senza data 
 products = FOREACH myinput GENERATE FLATTEN(TOBAG($1..));
@@ -14,4 +14,4 @@ counts = FOREACH grouped GENERATE group, COUNT(products);
 -- ordina per conteggio
 sorted = ORDER counts BY $1 DESC; 
 
-STORE sorted INTO '../data/output/pig/es1_SimpleBilling' USING PigStorage();
+STORE sorted INTO '$OUTPUT/es1_SimpleBilling' USING PigStorage();

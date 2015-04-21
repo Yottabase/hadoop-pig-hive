@@ -1,22 +1,32 @@
 #! /usr/bin/env bash
 
+/* CONFIG */
+INPUT="../data/generator/sample/esempio.txt"
+OUTPUT="../data/output/pigaaaaaaaddd/"
+EXTLIB="../target/bigdata-0.0.1-BETA.jar"
+
+ENGINE="local"
+#ENGINE="mapred"
+
+/* END CONFIG */
+
+
+
+
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd $DIR
 
-rm -v *.log
-rm -Rv ../data/output/pig/*
-
 echo "STARTING ES1..."
-pig -x local es1.pig
+pig -x $ENGINE -f es1.pig -param INPUT=$INPUT -param OUTPUT=$OUTPUT
 
 echo "STARTING ES2..."
-pig -x local es2.pig
+pig -x $ENGINE -f es2.pig -param INPUT=$INPUT -param OUTPUT=$OUTPUT
 
 echo "STARTING ES3..."
-pig -x local es3.pig
+pig -x $ENGINE -f es3.pig -param INPUT=$INPUT -param OUTPUT=$OUTPUT
 
 echo "STARTING OPT1..."
-pig -x local opt1.pig
+pig -x $ENGINE -f opt1.pig -param INPUT=$INPUT -param OUTPUT=$OUTPUT
 
 echo "STARTING OPT2..."
-pig -x local opt2.pig
+pig -x $ENGINE -f opt2.pig -param INPUT=$INPUT -param OUTPUT=$OUTPUT -param EXTLIB=$EXTLIB

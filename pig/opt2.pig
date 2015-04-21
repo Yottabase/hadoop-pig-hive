@@ -1,8 +1,8 @@
 
-REGISTER '../target/bigdata-0.0.1-BETA.jar'
+REGISTER '$EXTLIB'
 DEFINE powerset org.yottabase.billing.pig.udf.PowersetUDF();
 
-records = LOAD '../data/generator/sample/esempio.txt' USING PigStorage(',') ;
+records = LOAD '$INPUT' USING PigStorage(',') ;
 
 -- lista di scontrini senza data 
 products = FOREACH records GENERATE TOBAG($1..) AS recordProds;
@@ -20,4 +20,4 @@ grouped = GROUP subsets BY $0;
 -- conta il numero di occorrenze per coppia
 counts = FOREACH grouped GENERATE group, COUNT(subsets);
 
-STORE counts INTO '../data/output/pig/opt2_SubsetsFrequency' USING PigStorage();
+STORE counts INTO '$OUTPUT/opt2_SubsetsFrequency' USING PigStorage();

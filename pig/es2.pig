@@ -1,5 +1,5 @@
 
-myinput = LOAD '../data/generator/sample/esempio.txt' USING PigStorage(',') ;
+myinput = LOAD '$INPUT' USING PigStorage(',') ;
 
 -- seleziona solo scontrini del primo trimestre 2015 
 filtered = FILTER myinput BY $0 matches '2015-[012]-.*';
@@ -16,4 +16,4 @@ counted = FOREACH grouped GENERATE group.$0, (group.$1+1, COUNT(bydate));
 -- raggruppa per prodotto
 groupedByMonth =  GROUP counted BY $0;
 
-STORE groupedByMonth INTO '../data/output/pig/es2_QuarterAggregation' USING PigStorage();
+STORE groupedByMonth INTO '$OUTPUT/es2_QuarterAggregation' USING PigStorage();
