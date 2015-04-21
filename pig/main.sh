@@ -2,7 +2,7 @@
 
 /* CONFIG */
 INPUT="../data/generator/sample/esempio.txt"
-OUTPUT="../data/output/pigaaaaaaaddd/"
+OUTPUT="../data/output/pig/"
 EXTLIB="../target/bigdata-0.0.1-BETA.jar"
 
 ENGINE="local"
