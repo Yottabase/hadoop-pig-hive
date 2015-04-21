@@ -26,7 +26,7 @@ public class TopKProductPairMapper extends
 
 		ProductPair pair = new ProductPair(new Text(tokenizer.nextToken()),
 				new Text(tokenizer.nextToken()));
-		IntWritable count = new IntWritable(new Integer(tokenizer.nextToken()));
+		IntWritable count = new IntWritable(Integer.parseInt(tokenizer.nextToken()));
 		ProductPairCount ppc = new ProductPairCount(pair, count);
 
 		top.add(ppc);

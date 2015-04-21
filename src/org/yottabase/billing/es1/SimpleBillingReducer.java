@@ -1,9 +1,9 @@
-package org.yottabase.billing.es1.onereducer;
+package org.yottabase.billing.es1;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -16,14 +16,14 @@ public class SimpleBillingReducer extends
 	public void reduce(Text key, Iterable<IntWritable> values,
 			Context context) throws IOException, InterruptedException {
 		
-		Iterator<IntWritable> iter = values.iterator();
+		int tot = 0;
 		
-		Integer tot = new Integer(iter.next().get());
+		for(IntWritable count : values){
+			tot += count.get();
+		}
 		
-		//context.write(key, tot);
-		
-		//map.put(key.toString(), tot);
-		list.add(new ProductAggregation(key.toString(), tot));
+		//nota: new Text(key) è necessario visto che hadoop non ricrea key, ma semplicemente lo aggiorna
+		list.add(new ProductAggregation(new Text(key), new IntWritable(tot)));
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class SimpleBillingReducer extends
 		list.sort(new ProductAggregationComparator());
 		
 		for(ProductAggregation pa : list){
-			context.write(new Text(pa.getProductName()), new IntWritable(pa.getCount()));
+			context.write(pa.getProductName(), pa.getCount());
 		}
 	}
 	

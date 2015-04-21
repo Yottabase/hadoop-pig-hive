@@ -19,7 +19,7 @@ public class GlobalMain {
 		
 		FileSystem.deleteDirectory(new File(outputPath));
 		
-		org.yottabase.billing.es1.onereducer.Main.runJob(inputPath, outputPath);
+		org.yottabase.billing.es1.Main.runJob(inputPath, outputPath);
 		
 		org.yottabase.billing.es2.Main.runJob(inputPath, outputPath);
 		

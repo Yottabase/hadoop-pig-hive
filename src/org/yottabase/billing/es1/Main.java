@@ -1,4 +1,4 @@
-package org.yottabase.billing.es1.onereducer;
+package org.yottabase.billing.es1;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class Main {
 	
-	public static final String JOB_NAME = "es1_SimpleBilling_r1";
+	public static final String JOB_NAME = "es1_SimpleBilling";
 
 	public static void main(String[] args) throws Exception {
 		
