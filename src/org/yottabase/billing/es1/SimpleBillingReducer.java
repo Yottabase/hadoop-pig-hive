@@ -1,8 +1,8 @@
 package org.yottabase.billing.es1;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 public class SimpleBillingReducer extends
 		Reducer<Text, IntWritable, Text, IntWritable> {
 
-	private List<ProductAggregation> list = new LinkedList<ProductAggregation>();
+	private Set<ProductAggregation> list = new TreeSet<ProductAggregation>();
 	
 	public void reduce(Text key, Iterable<IntWritable> values,
 			Context context) throws IOException, InterruptedException {
@@ -30,8 +30,6 @@ public class SimpleBillingReducer extends
 	protected void cleanup(
 			Reducer<Text, IntWritable, Text, IntWritable>.Context context)
 			throws IOException, InterruptedException {
-		
-		list.sort(new ProductAggregationComparator());
 		
 		for(ProductAggregation pa : list){
 			context.write(pa.getProductName(), pa.getCount());
