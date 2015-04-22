@@ -3,7 +3,7 @@ package org.yottabase.billing.es1;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 
-public class ProductAggregation {
+public class ProductAggregation implements Comparable<ProductAggregation>{
 
 	private Text productName;
 	
@@ -29,6 +29,16 @@ public class ProductAggregation {
 
 	public void setCount(IntWritable count) {
 		this.count = count;
+	}
+
+	public int compareTo(ProductAggregation o) {
+		int r = (-1) * this.getCount().compareTo(o.getCount());
+		
+		if( r != 0){
+			return r;
+		}else{
+			return this.getProductName().compareTo(o.getProductName());
+		}
 	}
 	
 	
