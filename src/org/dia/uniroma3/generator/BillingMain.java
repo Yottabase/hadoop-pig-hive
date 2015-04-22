@@ -29,13 +29,13 @@ public static void main(String[] args) throws IOException {
 		
 		// big big big data!
 		System.out.println("start1");
-		IB.generate("data/generator/sample/esempio-xs.txt", (int) Math.pow(10, 4), 10);
+		IB.generate("data/generator/sample/esempio-10K.txt", (int) Math.pow(10, 4), 10);
 		System.out.println("start2");
-		IB.generate("data/generator/sample/esempio-sm.txt", (int) Math.pow(10, 6), 10);
+		IB.generate("data/generator/sample/esempio-1M.txt", (int) Math.pow(10, 6), 10);
 		System.out.println("start3");
-		IB.generate("data/generator/sample/esempio-md.txt", (int) Math.pow(10, 7), 10);
+		IB.generate("data/generator/sample/esempio-10M.txt", (int) Math.pow(10, 7), 10);
 		System.out.println("start4");
-		IB.generate("data/generator/sample/esempio-xl.txt", (int) Math.pow(10, 8), 10);
+		IB.generate("data/generator/sample/esempio-100M.txt", (int) Math.pow(10, 8), 10);
 		System.out.println("done");
 	}
 
