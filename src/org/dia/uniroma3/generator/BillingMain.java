@@ -35,6 +35,8 @@ public static void main(String[] args) throws IOException {
 		System.out.println("start3");
 		IB.generate("data/generator/sample/esempio-10M.txt", (int) Math.pow(10, 7), 10);
 		System.out.println("start4");
+		IB.generate("data/generator/sample/esempio-50M.txt", (int) (5 * Math.pow(10, 7)), 10);
+		System.out.println("start5");
 		IB.generate("data/generator/sample/esempio-100M.txt", (int) Math.pow(10, 8), 10);
 		System.out.println("done");
 	}
