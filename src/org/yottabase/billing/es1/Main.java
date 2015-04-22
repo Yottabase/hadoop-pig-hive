@@ -23,6 +23,8 @@ public class Main {
 	
 	public static void runJob(String inputPath, String outputPath) throws Exception{
 		
+		long start_time = System.currentTimeMillis();
+		
 		outputPath += "/" + JOB_NAME;
 		
 		Job job = new Job(new Configuration(), JOB_NAME);
@@ -44,5 +46,7 @@ public class Main {
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		job.waitForCompletion(true);
+		
+		System.out.println("TEMPO " + JOB_NAME + ":job1-> " + (System.currentTimeMillis() - start_time) );
 	}
 }
