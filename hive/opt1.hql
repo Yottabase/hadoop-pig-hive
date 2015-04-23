@@ -49,9 +49,10 @@ GROUP BY p1.product, p2.product;
 -- esegue statistiche finali
 INSERT OVERWRITE LOCAL DIRECTORY '${hiveconf:OUTPUT}/opt1_ProductPair'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t"
-SELECT pairCount.p1, pairCount.p2, pairCount.count / globalCount.count 
+SELECT pairCount.p1, pairCount.p2, pairCount.count / globalCount.count as totCount
 FROM productReceiptPair globalCount JOIN productReceiptPair pairCount
 WHERE globalCount.p1 = globalCount.p2
 	AND	globalCount.p1 = pairCount.p1
-	AND pairCount.p1 <> pairCount.p2;
+	AND pairCount.p1 <> pairCount.p2
+ORDER BY totCount DESC LIMIT 10;
 
