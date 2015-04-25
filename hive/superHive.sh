@@ -1,16 +1,16 @@
 #! /usr/bin/env bash
 
 
-/*
-configurare i path di questo script (vedi CONFIG)
 
-lanciare
-./superHive.sh 2>&1 | tee myhive.log.txt
+# configurare i path di questo script (vedi CONFIG)
+
+# lanciare
+# ./superHive.sh 2>&1 | tee myhive.log.txt
 
 
-splittare i files
-awk -f split.awk myhive.log.txt
-*/
+# splittare i files
+# awk -f split.awk myhive.log.txt
+
 
 
 
