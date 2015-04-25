@@ -1,10 +1,6 @@
 package org.yottabase.billing.es2;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -15,28 +11,14 @@ public class QuarterAggregationReducer extends
 	public void reduce(Text key, Iterable<CountByMounth> values, Context context) 
 			throws IOException, InterruptedException {
 		
-		Map<Integer, Integer> groupByMounth = new HashMap<Integer, Integer>();
+		int[] counts =  new int[3];
 		
-		for(CountByMounth cm : values){
-			Integer count = groupByMounth.remove(cm.getMounth());
-			
-			if(count == null){
-				count = cm.getCount();
-			}else{
-				count = cm.getCount() + count;
-			}
-			
-			groupByMounth.put(cm.getMounth(), count);
-		}
+		for(CountByMounth cm : values)
+			counts[cm.getMounth()] += cm.getCount();
 		
 		String out = "";
-		for(Entry<Integer, Integer> entry: groupByMounth.entrySet()){
-			
-			out += (entry.getKey() + 1) + "/2015:" + entry.getValue() + " ";
-			
-		}	
-		
-		out = out.trim();
+		for(int i = 0; i< counts.length; i++)
+			out += (i + 1) + "/2015:" + counts[i] + ((i != counts.length -1 ) ? " " : "");
 		
 		context.write(key, new Text(out));
 	}
