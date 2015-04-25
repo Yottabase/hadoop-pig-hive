@@ -8,11 +8,11 @@ import org.apache.hadoop.io.WritableComparable;
 
 public class CountByMounth implements WritableComparable<CountByMounth> {
 
-	private Integer mounth;
+	private int mounth;
 
-	private Integer count;
+	private int count;
 
-	public CountByMounth(Integer mounth, Integer count) {
+	public CountByMounth(int mounth, int count) {
 		super();
 		this.mounth = mounth;
 		this.count = count;
@@ -22,34 +22,34 @@ public class CountByMounth implements WritableComparable<CountByMounth> {
 		super();
 	}
 
-	public Integer getMounth() {
+	public int getMounth() {
 		return mounth;
 	}
 
-	public void setMounth(Integer mounth) {
+	public void setMounth(int mounth) {
 		this.mounth = mounth;
 	}
 
-	public Integer getCount() {
+	public int getCount() {
 		return count;
 	}
 
-	public void setCount(Integer count) {
+	public void setCount(int count) {
 		this.count = count;
 	}
 
 	public void readFields(DataInput in) throws IOException {
-		this.mounth = new Integer(in.readUTF());
-		this.count = new Integer(in.readUTF());
+		this.mounth =  Integer.parseInt(in.readUTF());
+		this.count = Integer.parseInt(in.readUTF());
 	}
 
 	public void write(DataOutput out) throws IOException {
-		out.writeUTF(mounth.toString());
-		out.writeUTF(count.toString());
+		out.writeUTF( Integer.toString(mounth) );
+		out.writeUTF( Integer.toString(count) );
 	}
 
 	public int compareTo(CountByMounth o) {
-		return this.mounth.compareTo(o.getMounth());
+		return this.getMounth() - o.getMounth();
 	}
 
 	@Override
