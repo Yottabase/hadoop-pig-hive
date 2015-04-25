@@ -30,7 +30,6 @@ public final class PowersetUDF extends UDF {
 		boolean firstProduct = true;
 		
 		String resultString = "";
-		System.out.println(productsPowerset);
 		
 		for(Set<String> group : productsPowerset){
 			
