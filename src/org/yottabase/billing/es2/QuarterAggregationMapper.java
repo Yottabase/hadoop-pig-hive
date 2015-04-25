@@ -3,17 +3,16 @@ package org.yottabase.billing.es2;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class QuarterAggregationMapper extends
-		Mapper<LongWritable, Text, ProductByMounth, IntWritable> {
+		Mapper<LongWritable, Text, Text, CountByMounth> {
 
 	private static final String DATE_SEPARATOR = "-";
 
-	private static final IntWritable ONE = new IntWritable(1);
+	private static final Integer ONE = new Integer(1);
 
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
@@ -28,7 +27,7 @@ public class QuarterAggregationMapper extends
 			Text product;
 			while (tokenizer.hasMoreTokens()) {
 				product = new Text(tokenizer.nextToken());
-				context.write(new ProductByMounth(product, mounth), ONE);
+				context.write(product, new CountByMounth(mounth, ONE));
 			}
 		}
 

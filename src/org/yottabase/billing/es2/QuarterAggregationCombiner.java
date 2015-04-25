@@ -1,21 +1,21 @@
 package org.yottabase.billing.es2;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class InlineQuarterAggregationReducer extends
-		Reducer<Text, CountByMounth, Text, Text> {
+public class QuarterAggregationCombiner extends
+		Reducer<Text, CountByMounth, Text, CountByMounth> {
 	
 	
 	public void reduce(Text key, Iterable<CountByMounth> values, Context context) 
 			throws IOException, InterruptedException {
 		
-		Map<Integer, Integer> groupByMounth = new TreeMap<Integer, Integer>();
+		Map<Integer, Integer> groupByMounth = new HashMap<Integer, Integer>();
 		
 		for(CountByMounth cm : values){
 			Integer count = groupByMounth.remove(cm.getMounth());
@@ -29,16 +29,12 @@ public class InlineQuarterAggregationReducer extends
 			groupByMounth.put(cm.getMounth(), count);
 		}
 		
-		String out = "";
 		for(Entry<Integer, Integer> entry: groupByMounth.entrySet()){
 			
-			out += (entry.getKey() + 1) + "/2015:" + entry.getValue() + " ";
+			context.write(key, new CountByMounth(entry.getKey(), entry.getValue()));
 			
-		}	
+		}
 		
-		out = out.trim();
-		
-		context.write(key, new Text(out));
 	}
 			
 }
