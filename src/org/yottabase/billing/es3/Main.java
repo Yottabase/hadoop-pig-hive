@@ -69,7 +69,6 @@ public class Main {
 
 		job.setJarByClass(Main.class);
 		job.setMapperClass(TopKProductPairMapper.class);
-//		job.setCombinerClass(TopKProductPairReducer.class);
 		job.setReducerClass(TopKProductPairReducer.class);
 
 		
