@@ -1,4 +1,4 @@
--- add jars hive-contrib-0.14.0.jar;
+add jars hive-contrib-0.14.0.jar;
 drop temporary function row_sequence; 
 create temporary function row_sequence as 'org.apache.hadoop.hive.contrib.udf.UDFRowSequence';
 
